@@ -99,15 +99,14 @@ void DeleteAtTail() {
 	temp->prev=NULL;
 	free(temp);
 }
-/*
+
 //Delete between a Node 
-void DeleteAtBetween(int a, int z) {
+void DeleteAtBetween(int a,int z) {
 	struct Node* aNode = GetNewNode(a);
 	struct Node* zNode = GetNewNode(z);
 	struct Node* temp = head;
 	struct Node* temp2 = temp->next;
 	struct Node* temp3 = temp2->next;
-	struct Node* temp4;
 	if(head == NULL) {
 		DeleteAtHead();
 	}
@@ -123,19 +122,18 @@ void DeleteAtBetween(int a, int z) {
 				temp3 = temp2->next;
 			}
 		}
-		temp4->next=temp->next;
-		temp->next = temp3->prev;
-		temp3->prev = temp4->next;
+		temp3->prev = temp;
+		temp->next = temp2->next;
 		temp2->next = NULL;
 		temp2->prev = NULL;
 		free(temp2);
 	}
 }
-*/
+
 //Prints all the elements in linked list in forward traversal order
 void Print() {
 	struct Node* temp = head;
-	printf("Forward: ");
+	printf("Double Linked List Data Value: ");
 	while(temp != NULL) {
 		printf("%d ",temp->data);
 		temp = temp->next;
@@ -164,7 +162,7 @@ void Menu() {
 	int choose;
 	int a,x,z;
 	printf("\n------- Double Linked List Menu -------\n");
-	printf ("Choose one action you will run (1-9): \n1. Insert Data at Head \n2. Insert Data at Tail \n3. Insert Data Between 2 Node \n4. Delete Data at Head \n5. Delete Data at Tail \n6. Print Backward \n7. Exit \nAnswer: ");
+	printf ("Choose one action you will run (1-9): \n1. Insert Data at Head \n2. Insert Data at Tail \n3. Insert Data Between 2 Node \n4. Delete Data at Head \n5. Delete Data at Tail \n6. Delete Data in the Middle \n7. Print Backward \n8. Exit \nAnswer: ");
 	scanf ("%d", &choose);
 	if (choose==1) {
 		printf("Insert data at head \nData Value: ");
@@ -196,17 +194,17 @@ void Menu() {
 		DeleteAtTail(x);
 		Print();
 	}
-/*	else if (choose==6){
+	else if (choose==6){
 		printf("Delete data between (node1,node2) \nExample: (2,5) \nType node1 and node2: ");
 		scanf("%d,%d", &a, &z);
 		DeleteAtBetween(a,z);
 		Print();
 	}
-*/	else if (choose==6){
+	else if (choose==7){
 		printf("Print Backward: \n");
 		ReversePrint();
 	}
-	else if (choose==7){
+	else if (choose==8){
 		printf("------- EXIT -------\n");
 		exit(0);
 	}
