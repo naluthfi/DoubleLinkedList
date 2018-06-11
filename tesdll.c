@@ -31,7 +31,37 @@ void InsertAtHead(int x) {
 	newNode->next = head; 
 	head = newNode;
 }
+void InsertAtBetween(int a, int x, int z){
+	struct Node* newNode = GetNewNode(x);
+	newNode->next=NULL;
+	newNode->prev=NULL;
+	struct Node* aNode = GetNewNode(a);
+	struct Node* zNode = GetNewNode(z);
+	struct Node* temp = head;
+	struct Node* temp2 = temp->next;
+	if(head == NULL) {
+		head = newNode;
+		return;
+	}
+	else if (temp->next == NULL) {
+		temp->next = newNode;
+		newNode->prev = temp;
+	}
+	else {
+		while(1) {
+			if (temp2->data == zNode->data && temp->data == aNode->data) break;
+			else {
+				temp = temp->next;
+				temp2 = temp->next;
+			}
+		}
+		temp->next = newNode;
+		newNode->prev = temp;
+		newNode->next = temp2;
+		temp2->prev = newNode;
+	}
 
+}
 //Inserts a Node at tail of Doubly linked list
 void InsertAtTail(int x) {
 	struct Node* temp = head;
@@ -44,7 +74,31 @@ void InsertAtTail(int x) {
 	temp->next = newNode;
 	newNode->prev = temp;
 }
-
+//Delete a Node at head
+void DeleteAtHead() {
+	struct Node* temp = head;
+	struct Node* temp2 = temp->next;
+	if(head == NULL) {
+		return;
+	}
+	while(temp->prev != NULL) temp = temp->prev;
+	head=temp2;
+	temp2->prev=NULL;
+	free(temp);
+}
+//Delete a Node at tail
+void DeleteAtTail() {
+	struct Node* temp = head;
+	struct Node* temp2;
+	if(head == NULL) {
+		return;
+	}
+	while(temp->next != NULL) temp = temp->next; // Go To last Node
+	temp2=temp->prev;
+	temp2->next=NULL;
+	temp->prev=NULL;
+	free(temp);
+}
 //Prints all the elements in linked list in forward traversal order
 void Print() {
 	struct Node* temp = head;
@@ -77,56 +131,40 @@ void Menu() {
 	int choose;
 	int a,x,z;
 	printf("\n------- Double Linked List Menu -------\n");
-	printf ("Choose one action you will run (1-9): \n1. Insert Data at Head \n2. Insert Data at Tail \n3. Insert Data Between 2 Node \n4. Delete Data at Head \n5. Delete Data at Tail \n6. Delete Data in the Middle \n7. Print Forward \n8. Print Backward \n9. Exit\nAnswer: ");
+	printf ("Choose one action you will run (1-9): \n1. Insert Data at Head \n2. Insert Data at Tail \n3. Insert Data Between 2 Node \n4. Delete Data at Head \n5. Delete Data at Tail \n6. Delete Data in the Middle \n7. Print Backward \n8. Search \n9. Exit \nAnswer: ");
 	scanf ("%d", &choose);
 	if (choose==1) {
 		printf("Insert data at head \nData Value: ");
 		scanf("%d", &x);
 		InsertAtHead(x);
+		Print();
 	}
 	else if (choose==2){
 		printf("Insert data at tail \nData Value: ");
 		scanf("%d", &x);
 		InsertAtTail(x);
+		Print();
 	}
 	else if (choose==3){
-		printf("Insert data between [node1,node2] \nExample: (2,5) \nType node1 and node2: ");
+		printf("Insert data between (node1,node2) \nExample: (2,5) \nType node1 and node2: ");
 		scanf("%d,%d", &a, &z);
 		printf("Data Value: ");
 		scanf("%d", &x);
-		struct Node* newNode = GetNewNode(x);
-		newNode->next=NULL;
-		newNode->prev=NULL;
-		struct Node* aNode = GetNewNode(a);
-		struct Node* zNode = GetNewNode(z);
-		struct Node* temp = head;
-		struct Node* temp2 = temp->next;
-		if(head == NULL) {
-			head = newNode;
-			return;
-		}
-		else if (temp->next == NULL) {
-			temp->next = newNode;
-			newNode->prev = temp;
-		}
-		else {
-			while(temp->data != aNode->data && temp2->data != zNode->data) {
-				printf("aNode %d, ", aNode->data);
-				printf("temp %d \n", temp->data);
-				temp = temp->next;
-				temp2 = temp->next;
-			}
-			printf("ubah hasil akhir");
-			temp->next = newNode;
-			newNode->prev = temp;
-			newNode->next = temp2;
-			temp2->prev = newNode;
-		}
-	}
-	else if (choose==7){
+		InsertAtBetween(a,x,z);
 		Print();
 	}
-	else if (choose==8){
+	if (choose==4) {
+		printf("Delete data at head \nData Value: ");
+		DeleteAtHead(x);
+		Print();
+	}
+	else if (choose==5){
+		printf("Delete data at tail \nData Value: ");
+		DeleteAtTail(x);
+		Print();
+	}
+	else if (choose==7){
+		printf("Print Backward: \n");
 		ReversePrint();
 	}
 	else if (choose==9){
