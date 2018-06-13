@@ -7,3 +7,4 @@ Feature:
 5. Delete Data at Tail 
 6. Delete Data in the Middle 
 7. Print Backward
+8. Search

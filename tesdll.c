@@ -149,20 +149,35 @@ void ReversePrint() {
 	while(temp->next != NULL) {
 		temp = temp->next;
 	}
-	// Traversing backward using prev pointer
-	printf("Reverse: ");
 	while(temp != NULL) {
 		printf("%d ",temp->data);
 		temp = temp->prev;
 	}
 	printf("\n");
 }
+void Search(int x){
+	int count;
+	struct Node* temp = head;
+	if(head == NULL) {
+		printf("Empty List");
+		return;
+	}
+	printf("\nData found on the list number : ");
+	while(temp != NULL){
+		count++;
+		if (temp->data==x){
+			printf(" %d ", count);
+		}
+		temp = temp->next;
+
+	} 
+}
 
 void Menu() {
 	int choose;
 	int a,x,z;
 	printf("\n------- Double Linked List Menu -------\n");
-	printf ("Choose one action you will run (1-9): \n1. Insert Data at Head \n2. Insert Data at Tail \n3. Insert Data Between 2 Node \n4. Delete Data at Head \n5. Delete Data at Tail \n6. Delete Data in the Middle \n7. Print Backward \n8. Exit \nAnswer: ");
+	printf ("Choose one action you will run (1-9): \n1. Insert Data at Head \n2. Insert Data at Tail \n3. Insert Data Between 2 Node \n4. Delete Data at Head \n5. Delete Data at Tail \n6. Delete Data in the Middle \n7. Print Backward \n8. Search \n9. Exit \nAnswer: ");
 	scanf ("%d", &choose);
 	if (choose==1) {
 		printf("Insert data at head \nData Value: ");
@@ -205,6 +220,11 @@ void Menu() {
 		ReversePrint();
 	}
 	else if (choose==8){
+		printf("\nValue Data: ");
+		scanf("%d", &x);
+		Search(x);
+	}
+	else if (choose==9){
 		printf("------- EXIT -------\n");
 		exit(0);
 	}
